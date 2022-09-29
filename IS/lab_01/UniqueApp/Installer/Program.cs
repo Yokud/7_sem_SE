@@ -15,7 +15,7 @@ namespace Installer
     {
         static void Main(string[] args)
         {
-            string SourceFileString = "../../App.cs";
+            string SourceFileString = "../../AppLib/App.cs";
             string Output = "AppLib.dll";
 
             var lines = File.ReadAllLines(SourceFileString).ToList();
@@ -25,6 +25,7 @@ namespace Installer
             var moObjs = moSearcher.Get().GetEnumerator();
             moObjs.MoveNext();
             string serialKey = moObjs.Current["SerialNumber"].ToString().Trim();
+
             string extraCode = $"static App() {{ key = \"{serialKey}\"; }}";
 
             lines.Insert(lines.Count - 2, extraCode);

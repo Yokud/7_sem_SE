@@ -6,13 +6,13 @@ namespace Enigma
 {
     class Reflector
     {
-        const int _amount = 256; // byte
+        const int amount = 256; // byte
 
         /// <summary>
         /// Считаем, что коммутация по соседним парам
         /// 0 и 1 элементы массива, 2 и 3 итд.
         /// </summary>
-        int[] commutations = new int[_amount];
+        int[] commutations = new int[amount];
 
 
         /// <summary>

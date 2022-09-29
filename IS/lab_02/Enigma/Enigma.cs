@@ -56,7 +56,7 @@ namespace Enigma
                 cur = fsSrc.ReadByte();
                 if (cur == -1)
                     break;
-                else;
+
                 fsDst.WriteByte((byte)ProcessOneByte(cur));
             }
 

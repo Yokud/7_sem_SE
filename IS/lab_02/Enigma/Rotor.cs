@@ -6,12 +6,12 @@ namespace Enigma
 {
     class Rotor
     {
-        const int _amount = 256; // byte
+        const int amount = 256; // byte
 
         /// <summary>
         /// Считаем что коммутация индекс - значение
         /// </summary>
-        int[] commutations = new int[_amount];
+        int[] commutations = new int[amount];
 
         int rotationsMade = 0;
 
@@ -46,7 +46,7 @@ namespace Enigma
             commutations[0] = tmp;
 
             rotationsMade++;
-            rotationsMade %= _amount;
+            rotationsMade %= amount;
             return rotationsMade;
         }
 

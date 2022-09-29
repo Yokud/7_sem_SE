@@ -11,15 +11,21 @@ namespace App
     {
         static void Main(string[] args)
         {
+            string serialKey = GetSerialKey();
+
+            AppLib.App.Func(serialKey);
+
+            Console.Read();
+        }
+
+        private static string GetSerialKey()
+        {
             ManagementObjectSearcher moSearcher = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive");
 
             var moObjs = moSearcher.Get().GetEnumerator();
             moObjs.MoveNext();
             string serialKey = moObjs.Current["SerialNumber"].ToString().Trim();
-
-            AppLib.App.Func(serialKey);
-
-            Console.Read();
+            return serialKey;
         }
     }
 }
