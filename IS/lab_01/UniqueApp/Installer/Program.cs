@@ -20,6 +20,7 @@ namespace Installer
 
             var lines = File.ReadAllLines(SourceFileString).ToList();
 
+            // ManagementObjectSearcher - обёртка над WMI (инструментарий управления Windows)
             ManagementObjectSearcher moSearcher = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive");
 
             var moObjs = moSearcher.Get().GetEnumerator();
