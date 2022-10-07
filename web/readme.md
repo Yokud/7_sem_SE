@@ -20,5 +20,5 @@
 ![](/img/ui_draft4.png)
 ![](/img/ui_draft5.png)
 
-## ER-диаграмма сущностей
+## ER-диаграмма сущностей системы
 ![](/img/ER-DB.drawio.png)
