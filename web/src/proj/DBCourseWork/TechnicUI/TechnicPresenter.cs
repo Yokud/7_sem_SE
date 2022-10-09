@@ -1,5 +1,5 @@
-﻿using DataBaseUI.Models;
-using DataBaseUI.SysEntities;
+﻿using DBLib.Models;
+using DBLib.SysEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

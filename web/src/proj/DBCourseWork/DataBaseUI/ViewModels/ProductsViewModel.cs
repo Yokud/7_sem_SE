@@ -6,14 +6,14 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using DataBaseUI.DB;
-using DataBaseUI.Models;
-using DataBaseUI.SysEntities;
-using DataBaseUI.Views.DialogWindows;
-using DataBaseUI.Views.DialogWindows.ProductsView;
+using DBLib.DB;
+using DBLib.Models;
+using DBLib.SysEntities;
+using DBLib.Views.DialogWindows;
+using DBLib.Views.DialogWindows.ProductsView;
 using Microsoft.Extensions.Logging;
 
-namespace DataBaseUI.ViewModels
+namespace DBLib.ViewModels
 {
     internal class ProductsViewModel : INotifyPropertyChanged
     {

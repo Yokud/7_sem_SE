@@ -1,4 +1,4 @@
-using DataBaseUI.SysEntities;
+using DBLib.SysEntities;
 
 namespace DBAccessTests
 {

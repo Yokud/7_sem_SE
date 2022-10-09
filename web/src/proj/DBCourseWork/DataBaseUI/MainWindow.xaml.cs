@@ -13,15 +13,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
-using DataBaseUI.DB;
-using DataBaseUI.Views;
-using DataBaseUI.ViewModels;
-using DataBaseUI.SysEntities;
+using DBLib.DB;
+using DBLib.Views;
+using DBLib.ViewModels;
+using DBLib.SysEntities;
 using Microsoft.Extensions.Logging;
-using DataBaseUI.Logger;
-using DataBaseUI.Views.DialogWindows;
+using DBLib.Logger;
+using DBLib.Views.DialogWindows;
 
-namespace DataBaseUI
+namespace DBLib
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

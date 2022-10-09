@@ -1,2 +1,2 @@
 global using Xunit;
-global using DataBaseUI.Models;
+global using DBLib.Models;

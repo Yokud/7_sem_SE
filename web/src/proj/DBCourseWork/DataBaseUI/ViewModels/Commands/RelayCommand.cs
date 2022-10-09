@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace DataBaseUI.ViewModels
+namespace DBLib.ViewModels
 {
     public class RelayCommand : ICommand
     {

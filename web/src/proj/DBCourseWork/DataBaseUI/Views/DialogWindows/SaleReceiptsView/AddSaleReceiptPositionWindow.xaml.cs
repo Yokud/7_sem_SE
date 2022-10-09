@@ -1,4 +1,4 @@
-﻿using DataBaseUI.SysEntities;
+﻿using DBLib.SysEntities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,7 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace DataBaseUI.Views.DialogWindows.SaleReceiptsView
+namespace DBLib.Views.DialogWindows.SaleReceiptsView
 {
     /// <summary>
     /// Логика взаимодействия для AddSaleReceiptPositionWindow.xaml

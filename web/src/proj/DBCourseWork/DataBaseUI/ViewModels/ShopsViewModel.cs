@@ -7,13 +7,13 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
 using System.Threading.Tasks;
-using DataBaseUI.Models;
-using DataBaseUI.SysEntities;
-using DataBaseUI.DB;
+using DBLib.Models;
+using DBLib.SysEntities;
+using DBLib.DB;
 using Microsoft.Extensions.Logging;
-using DataBaseUI.Views.DialogWindows;
+using DBLib.Views.DialogWindows;
 
-namespace DataBaseUI.ViewModels
+namespace DBLib.ViewModels
 {
     internal class ShopsViewModel : INotifyPropertyChanged
     {

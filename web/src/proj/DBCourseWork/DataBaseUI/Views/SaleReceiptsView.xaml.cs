@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DataBaseUI.Views
+namespace DBLib.Views
 {
     /// <summary>
     /// Логика взаимодействия для SaleReceiptsView.xaml

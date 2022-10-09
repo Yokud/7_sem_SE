@@ -1,4 +1,4 @@
-﻿using DataBaseUI.Models;
+﻿using DBLib.Models;
 using System;
 
 namespace TechnicUI

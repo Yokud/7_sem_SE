@@ -6,13 +6,13 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using DataBaseUI.DB;
-using DataBaseUI.Models;
-using DataBaseUI.SysEntities;
-using DataBaseUI.Views.DialogWindows.SaleReceiptsView;
+using DBLib.DB;
+using DBLib.Models;
+using DBLib.SysEntities;
+using DBLib.Views.DialogWindows.SaleReceiptsView;
 using Microsoft.Extensions.Logging;
 
-namespace DataBaseUI.ViewModels
+namespace DBLib.ViewModels
 {
     internal class SaleReceiptsViewModel : INotifyPropertyChanged
     {

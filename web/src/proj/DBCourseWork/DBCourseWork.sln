@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBAccessTests", "DBAccessTe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechnicUI", "TechnicUI\TechnicUI.csproj", "{597B2425-1F66-4242-B680-2A655A4BA239}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Experiment", "Experiment\Experiment.csproj", "{0478A801-4836-4516-84D9-7B02220677AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Experiment", "Experiment\Experiment.csproj", "{0478A801-4836-4516-84D9-7B02220677AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBLib", "DBLib\DBLib.csproj", "{1EABB870-2DAA-41E0-B3F8-DF32F7437977}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{0478A801-4836-4516-84D9-7B02220677AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0478A801-4836-4516-84D9-7B02220677AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0478A801-4836-4516-84D9-7B02220677AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EABB870-2DAA-41E0-B3F8-DF32F7437977}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EABB870-2DAA-41E0-B3F8-DF32F7437977}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EABB870-2DAA-41E0-B3F8-DF32F7437977}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EABB870-2DAA-41E0-B3F8-DF32F7437977}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,4 @@
-﻿using DataBaseUI.SysEntities;
+﻿using DBLib.SysEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -5,16 +5,16 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using DataBaseUI.DB;
-using DataBaseUI.Models;
-using DataBaseUI.SysEntities;
+using DBLib.DB;
+using DBLib.Models;
+using DBLib.SysEntities;
 using TrendLineLib;
 using OxyPlot;
 using System.Windows;
-using DataBaseUI.Views.DialogWindows.CostStoryView;
+using DBLib.Views.DialogWindows.CostStoryView;
 using Microsoft.Extensions.Logging;
 
-namespace DataBaseUI.ViewModels
+namespace DBLib.ViewModels
 {
     internal class CostStoryViewModel : INotifyPropertyChanged
     {

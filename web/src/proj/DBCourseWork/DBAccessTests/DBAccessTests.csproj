@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataBaseUI\DataBaseUI.csproj" />
+    <ProjectReference Include="..\DBLib\DBLib.csproj" />
   </ItemGroup>
 
 </Project>

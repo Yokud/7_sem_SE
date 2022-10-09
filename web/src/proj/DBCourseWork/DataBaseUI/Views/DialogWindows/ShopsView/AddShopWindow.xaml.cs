@@ -1,4 +1,4 @@
-﻿using DataBaseUI.SysEntities;
+﻿using DBLib.SysEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace DataBaseUI.Views.DialogWindows
+namespace DBLib.Views.DialogWindows
 {
     /// <summary>
     /// Логика взаимодействия для AddShopWindow.xaml
