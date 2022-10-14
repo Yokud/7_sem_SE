@@ -40,10 +40,10 @@ namespace lab3_DES
             var left = DataOperations.GetLeftPart(curArray);
             var right = DataOperations.GetRightPart(curArray);
 
-            for (int iCycle = 0; iCycle < 16; iCycle++)
+            for (int iCycle = 15; iCycle >= 0; iCycle--)
             {
                 var leftPrev = left;
-                left = right.Xor(DataOperations.FeistelFunction(left, roundKeys[16 - iCycle - 1]));
+                left = right.Xor(DataOperations.FeistelFunction(left, roundKeys[iCycle]));
                 right = leftPrev;
             }
 

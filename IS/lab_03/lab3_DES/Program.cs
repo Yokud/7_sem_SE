@@ -10,8 +10,8 @@ namespace lab3_DES
             BitArray key = new BitArray(new byte[7] { 89, 6, 2, 52, 2, 25, 165 });
             BitArray[] roundKeys = KeyOperations.GenerateKeys(key);
 
-            Encrypt("test.bin", "encoded.bin", roundKeys);
-            Decrypt("encoded.bin", "decoded.bin", roundKeys);
+            Encrypt("test.jpg", "encoded.jpg", roundKeys);
+            Decrypt("encoded.jpg", "decoded.jpg", roundKeys);
         }
 
         static void Encrypt(string filenameIn, string filenameOut, BitArray[] roundKeys)
@@ -48,7 +48,6 @@ namespace lab3_DES
             while (readNBytes == 8) // пока не конец файла
             {
                 decrypted = Cycles.DecryptionСycles(read, roundKeys);
-                PrintValues("decr", decrypted, 8);
 
                 readNBytes = r.ReadNextNBytes(8, out read);
                 if (readNBytes != 0) // этот блок не последний
@@ -61,27 +60,6 @@ namespace lab3_DES
 
             r.Close();
             w.Close();
-        }
-        
-
-        public static void PrintValues(string title, IEnumerable myList, int myWidth)
-        {
-            Console.WriteLine(title);
-            int i = myWidth;
-            foreach (Object obj in myList)
-            {
-                if (i <= 0)
-                {
-                    i = myWidth;
-                    Console.WriteLine();
-                }
-                i--;
-                if ((bool)obj)
-                    Console.Write("1", obj);
-                else
-                    Console.Write("0", obj);
-            }
-            Console.WriteLine();
         }
 
         public static byte ConvertToByte(BitArray bits)
