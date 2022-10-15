@@ -10,8 +10,10 @@ namespace lab3_DES
             BitArray key = new BitArray(new byte[7] { 89, 6, 2, 52, 2, 25, 165 });
             BitArray[] roundKeys = KeyOperations.GenerateKeys(key);
 
-            Encrypt("test.jpg", "encoded.jpg", roundKeys);
-            Decrypt("encoded.jpg", "decoded.jpg", roundKeys);
+            string coding = ".bin";
+
+            Encrypt("test" + coding, "encoded" + coding, roundKeys);
+            Decrypt("encoded" + coding, "decoded" + coding, roundKeys);
         }
 
         static void Encrypt(string filenameIn, string filenameOut, BitArray[] roundKeys)
