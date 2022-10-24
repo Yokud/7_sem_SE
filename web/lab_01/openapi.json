@@ -34,6 +34,15 @@
         ],
         "summary": "Create new shop",
         "description": "Create new shop",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Shop"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -200,6 +209,15 @@
         ],
         "summary": "Create new product",
         "description": "Create new product",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -472,6 +490,15 @@
           "salereceipts"
         ],
         "summary": "create new sale receipt",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaleReceipt"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -709,6 +736,15 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaleReceiptPosition"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -849,6 +885,15 @@
           "coststories"
         ],
         "summary": "Create new cost story unit",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CostStory"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful operation",
