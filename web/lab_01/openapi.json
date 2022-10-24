@@ -1141,7 +1141,7 @@
             "type": "string",
             "example": "ShopMine"
           },
-          "Desctription": {
+          "Description": {
             "type": "string",
             "example": "Food shop"
           }
