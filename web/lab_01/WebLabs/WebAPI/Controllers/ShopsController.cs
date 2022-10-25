@@ -53,31 +53,45 @@ namespace WebAPI.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Create new shop
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="shop">New shop object</param>
+        /// <response code="200">Successful operation</response>
+        /// <response code="405">Invalid input</response>
         [HttpPost]
-        public ActionResult Post([FromBody] string value)
+        public ActionResult Post([FromBody] ShopDTO shop)
         {
-            ShopDTO? shopDTO = JsonSerializer.Deserialize<ShopDTO>(value);
+            if (shop is null)
+                return BadRequest();
 
-            if (shopDTO is null)
-                return BadRequest(value);
+            Shop shopEntity = shop.GetEntity();
+            shopsRepository.Create(shopEntity);
 
-            Shop shop = shopDTO.GetEntity();
-            shopsRepository.Create(shop);
-
-            return Ok(shop.Id);
+            return Ok(shopEntity.Id);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="value"></param>
+        /// <param name="shop"></param>
+        /// <returns></returns>
+        /// <response code="200">Successful operation</response>
+        /// <response code="404">Not found</response>
+        /// <response code="405">Invalid input</response>
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] string value)
+        public ActionResult Put(int id, [FromBody] ShopDTO shop)
         {
+            var putShop = shopsRepository.Get(id);
+
+            if (putShop is null)
+                return NotFound();
+
+            putShop.Name = shop.Name;
+            putShop.Description = shop.Description;
+
+            shopsRepository.Update(putShop);
+
             return Ok();
         }
 

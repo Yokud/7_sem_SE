@@ -2,6 +2,7 @@
 using DBLib;
 using DBLib.Models;
 using DBLib.SysEntities;
+using WebAPI.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,50 +20,107 @@ namespace WebAPI.Controllers
         }
 
 
-        // GET: api/<ProductsController>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        public IEnumerable<Product> Get()
+        public ActionResult Get()
         {
-            return productsRepository.GetAll();
+            return Ok(productsRepository.GetAll().Select(prod => new ProductDTO(prod)));
         }
 
-        // GET api/<ProductsController>/5
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
-        public Product Get(int id)
+        public ActionResult Get(int id)
         {
             var product = productsRepository.Get(id);
 
             if (product is null)
-                NotFound();
+                return NotFound();
 
-            return product;
+            return Ok(new ProductDTO(product));
         }
 
-        // POST api/<ProductsController>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="product"></param>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult Post([FromBody] ProductDTO product)
         {
+            if (product is null)
+                return BadRequest();
+
+            Product prodEntity = product.GetEntity();
+            productsRepository.Create(prodEntity);
+
+            return Ok(prodEntity.Id);
         }
 
-        // PUT api/<ProductsController>/5
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="product"></param>
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public ActionResult Put(int id, [FromBody] ProductDTO product)
         {
+            Product prod = productsRepository.Get(id);
+
+            if (prod is null)
+                return NotFound();
+
+            prod.Name = product.Name;
+            prod.ProductType = product.ProductType;
+
+            productsRepository.Update(prod);
+
+            return Ok();
         }
 
-        // DELETE api/<ProductsController>/5
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(int id)
         {
             var product = productsRepository.Get(id);
 
             if (product is null)
-            {
-                NotFound();
-                return;
-            }
+                return NotFound();
                 
             productsRepository.Delete(product);
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="shop"></param>
+        /// <returns></returns>
+        [HttpGet("findByShop")]
+        public ActionResult FindByShop([FromQuery] ShopDTO shop)
+        {
+            var prods = productsRepository.GetAllFromShop(shop.GetEntity());
+
+            if (prods is null)
+                return NotFound();
+
+            return Ok(prods.Select(prod => new ProductDTO(prod)));
+        }
+
+        [HttpGet("{shopId}/{productId}")]
+        public ActionResult GetProductFromShop(int shopId, int ProductId)
+        {
+            return Ok();
         }
     }
 }

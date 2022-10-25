@@ -4,8 +4,10 @@ using System.Xml.Linq;
 
 namespace WebAPI.Models
 {
+    [JsonSerializable(typeof(ShopDTO))]
     public class ShopDTO
     {
+        [JsonConstructor]
         public ShopDTO(int id, string name, string description)
         {
             Id = id;
