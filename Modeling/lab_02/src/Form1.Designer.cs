@@ -45,7 +45,7 @@
             this.MainDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.MainDataGridView.Location = new System.Drawing.Point(12, 115);
             this.MainDataGridView.Name = "MainDataGridView";
-            this.MainDataGridView.Size = new System.Drawing.Size(418, 323);
+            this.MainDataGridView.Size = new System.Drawing.Size(445, 323);
             this.MainDataGridView.TabIndex = 0;
             // 
             // button1
@@ -89,10 +89,10 @@
             this.ResultDataGridView.AllowUserToAddRows = false;
             this.ResultDataGridView.AllowUserToDeleteRows = false;
             this.ResultDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ResultDataGridView.Location = new System.Drawing.Point(544, 115);
+            this.ResultDataGridView.Location = new System.Drawing.Point(505, 115);
             this.ResultDataGridView.Name = "ResultDataGridView";
             this.ResultDataGridView.ReadOnly = true;
-            this.ResultDataGridView.Size = new System.Drawing.Size(209, 323);
+            this.ResultDataGridView.Size = new System.Drawing.Size(263, 323);
             this.ResultDataGridView.TabIndex = 5;
             // 
             // Form1
@@ -107,7 +107,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.MainDataGridView);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Моделирование. ЛР2, Малышев И. А. ИУ7-71Б";
             ((System.ComponentModel.ISupportInitialize)(this.MainDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ResultDataGridView)).EndInit();
             this.ResumeLayout(false);
