@@ -10,7 +10,7 @@ namespace lab4_RSA
         {
             RSA rsaMachine = new RSA();
 
-            string filename = "test", ext = ".bin";
+            string filename = "test", ext = ".jpg";
 
             string filenameIN = filename + ext;
             string filenameEncr = filename + "_encr" + ext;
