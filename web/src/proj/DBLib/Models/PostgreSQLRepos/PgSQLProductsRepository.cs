@@ -168,5 +168,32 @@ namespace DBLib.Models
                 return null;
             }
         }
+
+        public IEnumerable<Product> GetAllFromShop(int shopId)
+        {
+            try
+            {
+                var conn = (NpgsqlConnection?)db.Database.GetDbConnection();
+                if (conn.State != ConnectionState.Open)
+                    conn.Open();
+                if (conn.State == ConnectionState.Executing)
+                    conn.Wait();
+                string cmd = string.Format("select * from get_products_by_shopid({0})", shopId);
+                NpgsqlCommand command = new NpgsqlCommand(cmd, conn);
+                ObservableCollection<Product> products = new ObservableCollection<Product>();
+                using (NpgsqlDataReader reader = command.ExecuteReader())
+                    while (reader.Read())
+                        products.Add(new Product((int)reader.GetDouble(0), reader.GetString(1), reader.GetString(2), (int?)reader.GetDouble(3)));
+
+                conn.Close();
+                return products;
+            }
+            catch (Exception e)
+            {
+                Trace.WriteLine(e.Message);
+                logger?.LogError(e.Message);
+                return null;
+            }
+        }
     }
 }

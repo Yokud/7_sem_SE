@@ -27,7 +27,8 @@ namespace WebAPI.Controllers
         /// <returns></returns>
         /// <response code="200">Successful operation</response>
         [HttpGet]
-        public ActionResult Get()
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ShopDTO>))]
+        public IActionResult Get()
         {
             return Ok(shopsRepository.GetAll().Select(shop => new ShopDTO(shop)));
         }
@@ -40,9 +41,9 @@ namespace WebAPI.Controllers
         /// <response code="200">Successful operation</response>
         /// <response code="404">Shop not found</response>
         [HttpGet("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Shop))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ShopDTO))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult Get(int id)
+        public IActionResult Get(int id)
         {
             var res = shopsRepository.Get(id);
 
@@ -57,9 +58,11 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="shop">New shop object</param>
         /// <response code="200">Successful operation</response>
-        /// <response code="405">Invalid input</response>
+        /// <response code="400">Invalid input</response>
         [HttpPost]
-        public ActionResult Post([FromBody] ShopDTO shop)
+        [ProducesResponseType(StatusCodes.Status200OK, Type=typeof(int))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult Post([FromBody] ShopDTO shop)
         {
             if (shop is null)
                 return BadRequest();
@@ -71,16 +74,17 @@ namespace WebAPI.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Update shop with selected id
         /// </summary>
         /// <param name="id"></param>
         /// <param name="shop"></param>
         /// <returns></returns>
         /// <response code="200">Successful operation</response>
         /// <response code="404">Not found</response>
-        /// <response code="405">Invalid input</response>
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] ShopDTO shop)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult Put(int id, [FromBody] ShopDTO shop)
         {
             var putShop = shopsRepository.Get(id);
 
@@ -103,9 +107,9 @@ namespace WebAPI.Controllers
         /// <response code="200">Successful operation</response>
         /// <response code="404">Shop not found</response>
         [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Shop))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ShopDTO))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
             var deletedShop = shopsRepository.Get(id);
 

@@ -11,5 +11,6 @@ namespace DBLib.Models
     public interface ICostStoryRepository : IRepository<CostStory>
     {
         IEnumerable<CostStory> GetFullCostStory(Shop shop, Product product);
+        IEnumerable<CostStory> GetFullCostStory(int shopId, int productId);
     }
 }

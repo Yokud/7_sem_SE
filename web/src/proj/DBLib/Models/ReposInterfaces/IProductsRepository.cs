@@ -11,5 +11,6 @@ namespace DBLib.Models
     public interface IProductsRepository : IRepository<Product>
     {
         IEnumerable<Product> GetAllFromShop(Shop shop);
+        IEnumerable<Product> GetAllFromShop(int shopId);
     }
 }

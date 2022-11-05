@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\DBCourseWork\src\proj\DBCourseWork\TrendLineLib\TrendLineLib.csproj" />
     <ProjectReference Include="..\..\..\src\proj\DBLib\DBLib.csproj" />
   </ItemGroup>
 

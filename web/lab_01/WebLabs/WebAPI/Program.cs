@@ -1,4 +1,5 @@
 using DBLib.Models;
+using TrendLineLib;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,8 @@ builder.Services.AddScoped<ISaleReceiptPositionsRepository, PgSQLSaleReceiptPosi
 builder.Services.AddScoped<ICostStoryRepository, PgSQLCostStoryRepository>();
 builder.Services.AddScoped<ICostsRepository, PgSQLCostsRepository>();
 builder.Services.AddScoped<IAvailabilityRepository, PgSQLAvailabilityRepository>();
+
+builder.Services.AddSingleton<BaseTrendLine, PolynomialTrendLine>();
 
 var app = builder.Build();
 

@@ -8,13 +8,6 @@ namespace WebAPI.Models
     public class ProductDTO
     {
         [JsonConstructor]
-        public ProductDTO(int id, string name, string productType)
-        {
-            Id = id;
-            Name = name;
-            ProductType = productType;
-        }
-
         public ProductDTO(string name, string productType)
         {
             Name = name;

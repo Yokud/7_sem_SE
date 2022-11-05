@@ -126,6 +126,25 @@ namespace DBLib.Models
             return story;
         }
 
+        public IEnumerable<CostStory> GetFullCostStory(int shopId, int productId)
+        {
+            var conn = (NpgsqlConnection?)db.Database.GetDbConnection();
+            if (conn.State != ConnectionState.Open)
+                conn.Open();
+
+            string cmd = string.Format("select * from get_coststory_by_shopid_prodid({0}, {1})", shopId, productId);
+            NpgsqlCommand command = new NpgsqlCommand(cmd, conn);
+
+            ObservableCollection<CostStory> story = new ObservableCollection<CostStory>();
+
+            using (NpgsqlDataReader reader = command.ExecuteReader())
+                while (reader.Read())
+                    story.Add(new CostStory((int)reader.GetDouble(0), (int)reader.GetDouble(1), (int)reader.GetDouble(2), (int)reader.GetDouble(3), (int)reader.GetDouble(4)));
+
+            conn.Close();
+            return story;
+        }
+
         public void Save()
         {
             db.SaveChanges();
