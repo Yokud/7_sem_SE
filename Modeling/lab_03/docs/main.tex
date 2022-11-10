@@ -181,17 +181,17 @@
 \begin{lstlisting}
 internal class LCGenerator
 {
-	int curElem = 1;
-	int a, c, m;
+	long curElem = 1;
+	long a, c, m;
 	
-	public LCGenerator(int a, int c, int m) 
+	public LCGenerator(long a, long c, long m) 
 	{
 		this.a = a;
 		this.c = c;
 		this.m = m;
 	}
 	
-	public int Seed
+	public long Seed
 	{
 		get => curElem;
 		set => curElem = value;
@@ -208,9 +208,9 @@ internal class LCGenerator
 		for (int i = 0; i < count; i++)
 		{
 			curElem = (curElem * a + c) % m;
-			
-			if (curElem % requiredDigitsDivider >= minAppendValue)
-				res.Add(curElem);
+			var elem = curElem % requiredDigitsDivider;
+			if (elem >= minAppendValue)
+				res.Add((int)elem);
 			else
 				addedElements--;
 		}
@@ -238,75 +238,78 @@ internal static class Criteria
 		int[] references = new int[sCount];
 		
 		for (int i = 0; i < sCount; i++)
-			for (int j = 0; j < sCount; j++)
+			for (int j = 0; j < sequence.Count() - 1; j++)
 			{
-				if (i != j && s[i] == s[j])
-					references[i]++;
+				var elem = sequence.ElementAt(j + 1) - sequence.ElementAt(j);
+				
+				if (s[i] == elem)
+					references[i] += 1;
 			}
 		
-		return references.Select(x => x / (double)sCount).Sum() / sCount;
+		double res = references.Select(x => x / (double)(sequence.Count() - 1)).Sum() / sCount; ;
+		return res;
 	}
 }
 \end{lstlisting}
 
 \section{Результаты работы}
 
-На рисунках \ref{img:ui1}-\ref{img:ui2} представлен пользовательский интерфейс программы до ввода количества состояний и ввода интенсивностей.
+На рисунках \ref{img:ui1}-\ref{img:ui2} представлен пользовательский интерфейс программы в исходном состоянии.
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[scale=0.6]{imgs/ui1.png}
+		\includegraphics[scale=0.8]{imgs/ui1}
 	\end{center}
-	\caption{Пользовательский интерфейс программы до ввода количества состояний.}
+	\caption{Пользовательский интерфейс программы до генерации чисел.}
 	\label{img:ui1}
 \end{figure}
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[scale=0.6]{imgs/ui2.png}
+		\includegraphics[scale=0.8]{imgs/ui2.png}
 	\end{center}
-	\caption{Пользовательский интерфейс программы до ввода интенсивностей.}
+	\caption{Пользовательский интерфейс программы до ввода чисел.}
 	\label{img:ui2}
 \end{figure}
 
-\subsection{Пример 1}
+\subsection{Пример генерации чисел}
 
-На рисунках \ref{img:res2}-\ref{img:graph2} представлен пример результатов работы программы с указанными данными.
+На рисунках \ref{img:res} представлен пример результатов работы программы с указанными данными.
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[scale=0.6]{imgs/res2.png}
+		\includegraphics[scale=0.8]{imgs/genres.png}
 	\end{center}
 	\caption{Исходные данные и результат.}
-	\label{img:res2}
+	\label{img:res}
 \end{figure}
+
+\subsection{Примеры ручного ввода}
+
+На рисунках \ref{img:res1}-\ref{img:res3} представлен пример результатов работы программы с указанными данными.
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[scale=0.6]{imgs/graph2.png}
+		\includegraphics[scale=0.8]{imgs/res1.png}
 	\end{center}
-	\caption{График вероятностей с точками стабилизации.}
-	\label{img:graph2}
-\end{figure}
-
-\subsection{Пример 2}
-
-На рисунках \ref{img:res1}-\ref{img:graph1} представлен пример результатов работы программы с указанными данными.
-
-\begin{figure}[H]
-	\begin{center}
-		\includegraphics[scale=0.6]{imgs/res1.png}
-	\end{center}
-	\caption{Исходные данные и результат.}
+	\caption{Числа 1..10.}
 	\label{img:res1}
 \end{figure}
 
 \begin{figure}[H]
 	\begin{center}
-		\includegraphics[scale=0.6]{imgs/graph1.png}
+		\includegraphics[scale=0.8]{imgs/res2.png}
 	\end{center}
-	\caption{График вероятностей с точками стабилизации.}
-	\label{img:graph1}
+	\caption{Числа 1..10 в обратном порядке.}
+	\label{img:res2}
+\end{figure}
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.8]{imgs/res3.png}
+	\end{center}
+	\caption{Случайные данные.}
+	\label{img:res3}
 \end{figure}
 
 \end{document}

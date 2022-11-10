@@ -25,13 +25,16 @@ namespace RandomNumbers
             int[] references = new int[sCount];
 
             for (int i = 0; i < sCount; i++)
-                for (int j = 0; j < sCount; j++)
+                for (int j = 0; j < sequence.Count() - 1; j++)
                 {
-                    if (i != j && s[i] == s[j])
-                        references[i]++;
+                    var elem = sequence.ElementAt(j + 1) - sequence.ElementAt(j);
+
+                    if (s[i] == elem)
+                        references[i] += 1;
                 }
 
-            return references.Select(x => x / (double)sCount).Sum() / sCount;
+            double res = references.Select(x => x / (double)(sequence.Count() - 1)).Sum() / sCount; ;
+            return res;
         }
     }
 }

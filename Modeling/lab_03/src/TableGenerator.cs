@@ -16,7 +16,8 @@ namespace RandomNumbers
         {
             using (StreamReader reader = new StreamReader(new FileStream(filename, FileMode.Open)))
             {
-                numbers.Add(int.Parse(reader.ReadLine()));
+                while (!reader.EndOfStream)
+                    numbers.Add(int.Parse(reader.ReadLine()));
             }
         }
 
@@ -30,9 +31,10 @@ namespace RandomNumbers
 
             for (int i = 0 ; i < numbers.Count && addedElements < count; i++) 
             {
-                if (numbers[i] % requiredDigitsDivider >= minAppendValue)
+                int elem = numbers[i] % requiredDigitsDivider;
+                if (elem >= minAppendValue)
                 {
-                    res.Add(numbers[i] % requiredDigitsDivider);
+                    res.Add(elem);
                     addedElements++;
                 }  
                 else

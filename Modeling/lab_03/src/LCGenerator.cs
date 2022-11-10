@@ -8,17 +8,17 @@ namespace RandomNumbers
 {
     internal class LCGenerator
     {
-        int curElem = 1;
-        int a, c, m;
+        long curElem = 1;
+        long a, c, m;
 
-        public LCGenerator(int a, int c, int m) 
+        public LCGenerator(long a, long c, long m) 
         {
             this.a = a;
             this.c = c;
             this.m = m;
         }
 
-        public int Seed
+        public long Seed
         {
             get => curElem;
             set => curElem = value;
@@ -30,14 +30,14 @@ namespace RandomNumbers
 
             int requiredDigitsDivider = (int)Math.Pow(10, requiredDigits);
             int minAppendValue = requiredDigitsDivider / 10 - 1;
-            int addedElements = 0;
 
-            for (int i = 0; i < count; i++)
+            for (int addedElements = 0; addedElements < count; addedElements++)
             {
                 curElem = (curElem * a + c) % m;
 
-                if (curElem % requiredDigitsDivider >= minAppendValue)
-                    res.Add(curElem);
+                long elem = curElem % requiredDigitsDivider;
+                if (elem >= minAppendValue)
+                    res.Add((int)elem);
                 else
                     addedElements--;
             }
