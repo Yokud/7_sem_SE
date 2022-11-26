@@ -28,9 +28,7 @@ namespace QueueModeling
         public void ProcessRequest()
         {
             if (CurrentNumberOfRequestsInQueue == 0)
-            {
                 return;
-            }
 
             CurrentNumberOfRequestsInQueue--;
             if (ContinuousUniform.Sample(0, 1) < ProbabilityOfReturnToQueue)
@@ -46,10 +44,8 @@ namespace QueueModeling
         }
 
         public int DetectedMaxOfRequestsInQueue { get; set; }
-
         public int CurrentNumberOfRequestsInQueue { get; set; }
         public int NumberOfReturnedRequests { get; set; }
-
         public double ProbabilityOfReturnToQueue { get; set; }
     }
 }

@@ -123,8 +123,6 @@
 
 Протяжка модельного времени должна осуществляться по $\Delta t$ и по событийному принципу. Обозначить, есть ли разница в результатах. 
 
-
-
 \chapter{Решение}
 \section{Теоретическая часть}
 
@@ -145,17 +143,217 @@
 Далее представлен фрагмент программы, выполняющий поставленное задание.
 
 \begin{lstlisting}
+internal class Processor
+{
+	double lambda;
+	
+	public Processor(double lambda, double probabilityOfReturnToQueue)
+	{
+		this.lambda = lambda;
+		ProbabilityOfReturnToQueue = probabilityOfReturnToQueue;
+	}
+	
+	public void GetRequest()
+	{
+		CurrentNumberOfRequestsInQueue++;
+		
+		if (CurrentNumberOfRequestsInQueue > DetectedMaxOfRequestsInQueue) 
+			DetectedMaxOfRequestsInQueue = CurrentNumberOfRequestsInQueue;
+	}
+	
+	public void ProcessRequest()
+	{
+		if (CurrentNumberOfRequestsInQueue == 0)
+			return;
+		
+		CurrentNumberOfRequestsInQueue--;
+		if (ContinuousUniform.Sample(0, 1) < ProbabilityOfReturnToQueue)
+		{
+			NumberOfReturnedRequests++;
+			GetRequest();
+		}
+	}
+	
+	public double GetNextTimeOfRequestProcessed()
+	{
+		return Poisson.Sample(lambda);
+	}
+	
+	public int DetectedMaxOfRequestsInQueue { get; set; }
+	public int CurrentNumberOfRequestsInQueue { get; set; }
+	public int NumberOfReturnedRequests { get; set; }
+	public double ProbabilityOfReturnToQueue { get; set; }
+}
 
+internal class RequestsGenerator
+{
+	double a, b;
+	
+	public RequestsGenerator(double a, double b)
+	{
+		this.a = a;
+		this.b = b;
+	}
+	
+	public double GetNextTimeOfRequestGenerated()
+	{
+		return ContinuousUniform.Sample(a, b);
+	}
+}
+
+internal class Simulator
+{
+	Processor processor;
+	RequestsGenerator requestGenerator;
+	
+	public Simulator(Processor processor, RequestsGenerator requestGenerator) 
+	{
+		this.processor = processor;
+		this.requestGenerator = requestGenerator;
+	}
+	
+	public (double, double) SimulateUsingDeltaTMethod(int requestsCount)
+	{
+		double timeOfGeneration = requestGenerator.GetNextTimeOfRequestGenerated();
+		double timeOfProcessing = timeOfGeneration + processor.GetNextTimeOfRequestProcessed();
+		
+		int numberOfSentRequests = 0;
+		for (double currentTime = 0; numberOfSentRequests < requestsCount; currentTime += 1e-3)
+		{
+			while (timeOfGeneration <= currentTime)
+			{
+				numberOfSentRequests++;
+				processor.GetRequest();
+				
+				timeOfGeneration += requestGenerator.GetNextTimeOfRequestGenerated();
+			}
+			
+			while (timeOfProcessing <= currentTime)
+			{
+				processor.ProcessRequest();
+				
+				if (processor.CurrentNumberOfRequestsInQueue > 0)
+				timeOfProcessing += processor.GetNextTimeOfRequestProcessed();
+				else
+				timeOfProcessing = timeOfGeneration + processor.GetNextTimeOfRequestProcessed();
+			}
+		}
+		
+		while (processor.CurrentNumberOfRequestsInQueue > 0)
+		processor.ProcessRequest();
+		
+		return (processor.NumberOfReturnedRequests, processor.DetectedMaxOfRequestsInQueue);
+	}
+	
+	public (double, double) SimulateUsingEventMethod(int requestsCount) 
+	{
+		double timeOfGeneration = requestGenerator.GetNextTimeOfRequestGenerated();
+		double timeOfProcessing = timeOfGeneration + processor.GetNextTimeOfRequestProcessed();
+		
+		int numberOfSentRequests = 0;
+		while (numberOfSentRequests < requestsCount)
+		{
+			while (timeOfGeneration <= timeOfProcessing)
+			{
+				numberOfSentRequests++;
+				processor.GetRequest();
+				
+				timeOfGeneration += requestGenerator.GetNextTimeOfRequestGenerated();
+			}
+			
+			while (timeOfGeneration >= timeOfProcessing)
+			{
+				processor.ProcessRequest();
+				
+				if (processor.CurrentNumberOfRequestsInQueue > 0)
+				timeOfProcessing += processor.GetNextTimeOfRequestProcessed();
+				else
+				timeOfProcessing = timeOfGeneration + processor.GetNextTimeOfRequestProcessed();
+			}
+		}
+		
+		while (processor.CurrentNumberOfRequestsInQueue > 0)
+		processor.ProcessRequest();
+		
+		return (processor.NumberOfReturnedRequests, processor.DetectedMaxOfRequestsInQueue);
+	}
+}
 \end{lstlisting}
 
 \section{Результаты работы}
 
-На рисунках  представлен пользовательский интерфейс программы в исходном состоянии.
+На рисунке \ref{img:ui} представлен пользовательский интерфейс программы в исходном состоянии.
 
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.8]{imgs/ui.png}
+	\end{center}
+	\caption{Пользовательский интерфейс программы в исходном состоянии.}
+	\label{img:ui}
+\end{figure}
 
+На рисунках \ref{img:res1}-\ref{img:res4} представлены примеры результатов работы программы с указанными данными.
 
-На рисунках  представлен пример результатов работы программы с указанными данными.
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.8]{imgs/res1.png}
+	\end{center}
+	\caption{Пример работы для системы без обратной связи с ОА, обрабатывающим запросы медленнее их генерации.}
+	\label{img:res1}
+\end{figure}
 
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.8]{imgs/res2.png}
+	\end{center}
+	\caption{Пример работы для системы без обратной связи с ОА, обрабатывающим запросы медленнее их генерации.}
+	\label{img:res2}
+\end{figure}
 
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.8]{imgs/res3.png}
+	\end{center}
+	\caption{Пример работы для системы без обратной связи с ОА, обрабатывающим запросы быстрее их генерации.}
+	\label{img:res3}
+\end{figure}
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.8]{imgs/res4.png}
+	\end{center}
+	\caption{Пример работы для системы без обратной связи с ОА, обрабатывающим запросы быстрее их генерации.}
+	\label{img:res4}
+\end{figure}
+
+\subsection*{Выводы}
+
+На рисунке \ref{img:res5} предоставлен один из результатов моделирования для системы, в которую поступает 1000 заявок, каждая из которых имеет 50\% шанс вернуться в очередь.
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.8]{imgs/res5.png}
+	\end{center}
+	\caption{Пример работы программы.}
+	\label{img:res5}
+\end{figure}
+
+Как видно из результатов: при моделировании вновь поступило около 1000 заявок. Это связано с фактом того, что каждая из вернувшихся в очередь заявок может вернуться в данную очередь вновь с той же заданной вероятностью в 0.5. Таким образом:
+
+\begin{equation}
+	\begin{split}
+		a_0 = 1000 \\
+		a_{i+1} = \frac{a_i}{2} \\
+		\sum_{i = 1}^{a_i > 0} a_i = 1001, \\
+	\end{split}
+\end{equation}
+
+что и является ожидаемым значением количества вновь поступивших заявок.
+
+Из рисунков \ref{img:res1}-\ref{img:res4} заметно, что результаты моделирования с использованием двух отличных способов протяжки модельного времени отличаются несущественно.
+
+Основным недостатком протяжки времени по $\Delta t$ является значительные затраты машинного времени на реализацию моделирования системы. При этом недостаточное малое $\Delta t$ появляется опасность пропуска отдельных событий в системе, что исключает возможность получения адекватных результатов. В данной лабораторной работе $\Delta t = 10^{-3}$.
+
+Основным недостатком протяжки времени по событийному принципу является надобность в постоянном анализе списка будущих событий, что с большим количеством событий в системе может привести к большим затратам памяти и машинного времени.
 
 \end{document}
