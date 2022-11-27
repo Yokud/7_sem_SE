@@ -1,2 +1,2 @@
-cd TestingLabs/UnitTests
+cd ./TestingLabs/UnitTests
 dotnet test
