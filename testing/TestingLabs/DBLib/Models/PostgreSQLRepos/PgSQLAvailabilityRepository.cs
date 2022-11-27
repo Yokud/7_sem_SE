@@ -17,9 +17,9 @@ namespace DBLib.Models
         SpsrLtDbContext db;
         IEnumerable<Availability> availabilities;
 
-        ILogger logger;
+        ILogger? logger;
 
-        public PgSQLAvailabilityRepository(ILogger logger = null)
+        public PgSQLAvailabilityRepository(ILogger? logger = null)
         {
             db = new SpsrLtDbContext();
             availabilities = new ObservableCollection<Availability>();
@@ -29,7 +29,7 @@ namespace DBLib.Models
             this.logger = logger;
         }
 
-        public PgSQLAvailabilityRepository(SpsrLtDbContext spsr, ILogger logger = null)
+        public PgSQLAvailabilityRepository(SpsrLtDbContext spsr, ILogger? logger = null)
         {
             db = spsr;
             availabilities = new ObservableCollection<Availability>();
