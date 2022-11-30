@@ -41,7 +41,6 @@ namespace lab6_LZW
                 }
                 output.Close();
             }
-            Console.WriteLine(table.Count);
         }
 
         /// <summary>
@@ -87,7 +86,7 @@ namespace lab6_LZW
         
         public static int GetBitsAmount(int maxVal)
         {
-            return 13;
+            return 16;
             int pow = 0;
             while (maxVal > 0)
             {

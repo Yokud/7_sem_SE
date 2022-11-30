@@ -7,10 +7,10 @@ namespace lab6_LZW
     {
         static void Main(string[] args)
         {
-            string fType = "rar";
-            LZWAlgo.Compress("test." + fType, "tmp.txt");
+            string fType = ".png";
+            LZWAlgo.Compress("test" + fType, "tmp" + fType);
             Console.WriteLine();
-            LZWAlgo.Decompress("tmp.txt", "res." + fType);
+            LZWAlgo.Decompress("tmp" + fType, "res" + fType);
         }
     }
 }
