@@ -29,6 +29,10 @@ namespace lab6_LZW
                         {
                             p = pPlusC;
                             last = input.ReadByte();
+
+                            if (last == -1)
+                                break;
+
                             pPlusC += new TableRow(last);
                         }
 
@@ -37,7 +41,6 @@ namespace lab6_LZW
                         output.WriteNBits(indexToAdd, GetBitsAmount(table.Count));
                         p = new TableRow();
                     }
-                    output.Write(ushort.MaxValue);
                 }
                 output.Close();
             }
