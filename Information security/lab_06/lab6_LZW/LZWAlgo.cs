@@ -59,7 +59,7 @@ namespace lab6_LZW
             {
                 using (var output = new FileStream(dst, FileMode.Create))
                 {
-                    TableRow w = new TableRow(); ;
+                    TableRow w = new TableRow();
 
                     var cW = input.ReadNBits(GetBitsAmount(table.Count));
 
