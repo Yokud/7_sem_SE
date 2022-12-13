@@ -8,48 +8,55 @@ namespace UnitTests
 {
     public class SaleReceiptsRepositoryTests
     {
+        SaleReceiptBuilder builder = new SaleReceiptBuilder();
+
         [Fact]
         public void TestGet()
         {
             ISaleReceiptsRepository rep = new PgSQLSaleReceiptsRepository();
+            SaleReceipt saleReceipt = builder.GetTestSample().Build();
 
-            SaleReceipt sr = rep.Get(1);
+            SaleReceipt sr = rep.Get(saleReceipt.Id);
 
-            Assert.Equal("Полякова Ангелина Тимофеевна", sr.Fio);
+            Assert.Equal(saleReceipt, sr);
         }
 
         [Fact]
         public void TestCreate()
         {
             ISaleReceiptsRepository rep = new PgSQLSaleReceiptsRepository();
-            SaleReceipt newSr = new SaleReceipt("123", new DateOnly(1, 1, 1), 1);
+            SaleReceipt newSr = builder.CreateTestSample().Build();
 
             rep.Create(newSr);
+            SaleReceipt createdSR = rep.Get(newSr.Id);
 
-            Assert.Equal("123", rep.GetAll().Where(x => x.Fio == "123").First().Fio);
+            Assert.Equal(newSr, createdSR);
         }
 
         [Fact]
         public void TestUpdate()
         {
             ISaleReceiptsRepository rep = new PgSQLSaleReceiptsRepository();
-            SaleReceipt newSr = new SaleReceipt("123", new DateOnly(1, 1, 1), 1);
+            SaleReceipt updSr = builder.UpdateTestSample().Build();
 
-            newSr.Fio = "456";
-            rep.Update(newSr);
+            rep.Create(updSr);
+            updSr.Fio = "456";
+            rep.Update(updSr);
+            SaleReceipt updatedSR = rep.Get(updSr.Id);
 
-            Assert.Equal("456", rep.GetAll().Where(x => x.Fio == "456").First().Fio);
+            Assert.Equal(updSr, updatedSR);
         }
 
         [Fact]
         public void TestDelete()
         {
             ISaleReceiptsRepository rep = new PgSQLSaleReceiptsRepository();
-            SaleReceipt newSr = new SaleReceipt("123", new DateOnly(1, 1, 1), 1);
+            SaleReceipt delSr = builder.DeleteTestSample().Build();
 
-            rep.Delete(newSr);
+            rep.Create(delSr);
+            rep.Delete(delSr);
 
-            Assert.Equal(Array.Empty<SaleReceipt>(), rep.GetAll().Where(x => x.Fio == "456").ToArray());
+            Assert.Null(rep.Get(delSr.Id));
         }
     }
 }

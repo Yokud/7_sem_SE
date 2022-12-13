@@ -8,14 +8,17 @@ namespace UnitTests
 {
     public class CostsRepositoryTests
     {
+        CostBuilder builder = new CostBuilder();
+
         [Fact]
         public void TestGet()
         {
             ICostsRepository rep = new PgSQLCostsRepository();
+            Cost cost = builder.GetTestSample().Build();
 
-            Cost c = rep.Get(1);
+            Cost c = rep.Get(cost.AvailabilityId);
 
-            Assert.Equal(5652, c.CostValue);
+            Assert.Equal(cost, c);
         }
     }
 }

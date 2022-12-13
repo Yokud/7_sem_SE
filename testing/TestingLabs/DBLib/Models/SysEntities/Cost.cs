@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DBLib.SysEntities
 {
-    public class Cost : INotifyPropertyChanged
+    public class Cost : INotifyPropertyChanged, IEquatable<Cost>
     {
         int availabilityId, costValue;
 
@@ -22,6 +22,12 @@ namespace DBLib.SysEntities
         public int CostValue { get => costValue; set { costValue = value; OnPropertyChanged("CostValue"); } }
 
         public event PropertyChangedEventHandler? PropertyChanged;
+
+        public bool Equals(Cost? other)
+        {
+            return other is not null && AvailabilityId == other.AvailabilityId && CostValue == other.CostValue;
+        }
+
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             if (PropertyChanged != null)

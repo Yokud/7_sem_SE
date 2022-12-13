@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DBLib.SysEntities
 {
-    public class Shop : INotifyPropertyChanged
+    public class Shop : INotifyPropertyChanged, IEquatable<Shop>
     {
         int id;
         string name;
@@ -36,6 +36,11 @@ namespace DBLib.SysEntities
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
+
+        public bool Equals(Shop? other)
+        {
+            return other is not null && Name == other.Name && Description == other.Description;
         }
     }
 }

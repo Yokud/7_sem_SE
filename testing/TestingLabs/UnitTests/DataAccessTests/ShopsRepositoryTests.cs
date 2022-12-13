@@ -4,53 +4,66 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnitTests.BuildersNFabrics;
 
 namespace UnitTests
 {
     public class ShopsRepositoryTests
     {
+        ShopBuilder builder;
+
+        public ShopsRepositoryTests() 
+        {
+            builder = new ShopBuilder();
+        }
+
         [Fact]
         public void TestGet()
         {
             IShopsRepository rep = new PgSQLShopsRepository();
+            Shop expectedShop = builder.GetTestSample().Build();
 
-            Shop shop = rep.Get(1);
-
-            Assert.Equal("Похороны", shop.Name);
+            Shop shop = rep.Get(expectedShop.Id);
+            
+            Assert.Equal(expectedShop, shop);
         }
 
         [Fact]
         public void TestCreate()
         {
             IShopsRepository rep = new PgSQLShopsRepository();
-            Shop newShop = new Shop("123", "123");
+            Shop newShop = builder.CreateTestSample().Build();
 
             rep.Create(newShop);
+            Shop createdShop = rep.Get(newShop.Id);
 
-            Assert.Equal("123", rep.GetAll().First(x => x.Name == "123").Name);
+            Assert.Equal(newShop, createdShop);
         }
 
         [Fact]
         public void TestUpdate() 
         {
             IShopsRepository rep = new PgSQLShopsRepository();
-            Shop newShop = new Shop("123", "123");
+            Shop updShop = builder.UpdateTestSample().Build();
 
-            newShop.Name = "456";
-            rep.Update(newShop);
+            rep.Create(updShop);
+            updShop.Name = "456";
+            rep.Update(updShop);
+            Shop updatedShop = rep.Get(updShop.Id);
 
-            Assert.Equal("456", rep.GetAll().Where(x => x.Name == "456").First().Name);
+            Assert.Equal(updShop, updatedShop);
         }
 
         [Fact]
         public void TestDelete() 
         {
             IShopsRepository rep = new PgSQLShopsRepository();
-            Shop newShop = new Shop("123", "123");
+            Shop delShop = builder.DeleteTestSample().Build();
 
-            rep.Delete(newShop);
+            rep.Create(delShop);
+            rep.Delete(delShop);
 
-            Assert.Equal(Array.Empty<Shop>(), rep.GetAll().Where(x => x.Name == "456").ToArray());
+            Assert.Null(rep.Get(delShop.Id));
         }
     }
 }

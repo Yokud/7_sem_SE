@@ -8,16 +8,44 @@ namespace UnitTests.BuildersNFabrics
 {
     internal class ShopBuilder
     {
-        int id;
-        string name, description;
+        Shop shop = new Shop(0, string.Empty, string.Empty);
 
-        public ShopBuilder() 
+        public ShopBuilder GetTestSample()
         {
-            id = 0;
-            name = string.Empty;
-            description = string.Empty;
+            shop.Id = 1;
+            shop.Name = "Бабочка";
+            shop.Description = "Ботинок изба забирать дошлый выразить подземный.";
+
+            return this;
         }
 
+        public ShopBuilder CreateTestSample() 
+        {
+            shop.Name = "123";
+            shop.Description = "123";
 
+            return this;
+        }
+
+        public ShopBuilder UpdateTestSample() 
+        {
+            shop.Name = "idk";
+            shop.Description = "hz";
+
+            return this;
+        }
+
+        public ShopBuilder DeleteTestSample()
+        {
+            shop.Name = "555";
+            shop.Description = "123";
+
+            return this;
+        }
+
+        public Shop Build()
+        {
+            return shop;
+        }
     }
 }

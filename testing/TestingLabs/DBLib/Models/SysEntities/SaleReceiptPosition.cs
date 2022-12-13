@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DBLib.SysEntities
 {
-    public class SaleReceiptPosition : INotifyPropertyChanged
+    public class SaleReceiptPosition : INotifyPropertyChanged, IEquatable<SaleReceiptPosition>
     {
         int id, availabilityId, saleReceiptId;
 
@@ -34,6 +34,11 @@ namespace DBLib.SysEntities
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
+
+        public bool Equals(SaleReceiptPosition? other)
+        {
+            return other is not null && AvailabilityId == other.AvailabilityId && SaleReceiptId == other.SaleReceiptId;
         }
     }
 }

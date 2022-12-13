@@ -2,68 +2,75 @@ using UnitTests.BuildersNFabrics;
 
 namespace UnitTests
 {
-    public class BusinessLogicTests
+    public class SplinesTests
     {
         SplinesFabric splinesFabric;
+        CoefsFabric coefsFabric;
 
-        public BusinessLogicTests() 
+        public SplinesTests() 
         {
             splinesFabric = new SplinesFabric();
+            coefsFabric = new CoefsFabric();
         }
 
         [Fact]
         public void TestLinearSpline()
         {
             IEnumerable<WeightPoint> data = splinesFabric.CreateLinearSpline();
+            IEnumerable<double> expectedCoefs = coefsFabric.LinearSplineCoefs();
             BaseTrendLine line = new PolynomialTrendLine();
 
             var res = line.GetCoefs(data);
 
-            Assert.Equal(new List<double>() { -0.148, 0.906 }, res.Select(x => Math.Round(x, 3)));
+            Assert.Equal(expectedCoefs, res.Select(x => Math.Round(x, 3)));
         }
 
         [Fact]
         public void TestQuadraticSpline()
         {
             IEnumerable<WeightPoint> data = splinesFabric.CreateQuadraticSpline();
+            IEnumerable<double> expectedCoefs = coefsFabric.QuadraticSplineCoefs();
             BaseTrendLine line = new PolynomialTrendLine();
 
             var res = line.GetCoefs(data);
 
-            Assert.Equal(new List<double>() { 1.107, -0.659, 0.254 }, res.Select(x => Math.Round(x, 3)));
+            Assert.Equal(expectedCoefs, res.Select(x => Math.Round(x, 3)));
         }
 
         [Fact]
         public void TestCubicSpline()
         {
             IEnumerable<WeightPoint> data = splinesFabric.CreateCubicSpline();
+            IEnumerable<double> expectedCoefs = coefsFabric.CubicSplineCoefs();
             BaseTrendLine line = new PolynomialTrendLine();
 
             var res = line.GetCoefs(data);
 
-            Assert.Equal(new List<double>() { 0.24, 1.657, -0.737, 0.113 }, res.Select(x => Math.Round(x, 3)));
+            Assert.Equal(expectedCoefs, res.Select(x => Math.Round(x, 3)));
         }
 
         [Fact]
         public void TestDirectLine()
         {
             IEnumerable<WeightPoint> data = splinesFabric.CreateDirectionLine();
+            IEnumerable<double> expectedCoefs = coefsFabric.DirectLineCoefs();
             BaseTrendLine line = new PolynomialTrendLine();
 
             var res = line.GetCoefs(data);
 
-            Assert.Equal(new List<double>() { 0, 1 }, res.Select(x => Math.Round(x, 3)));
+            Assert.Equal(expectedCoefs, res.Select(x => Math.Round(x, 3)));
         }
 
         [Fact]
         public void TestMaxExtremums()
         {
             IEnumerable<WeightPoint> data = splinesFabric.CreateSplineWithMaxExtremums();
+            IEnumerable<double> expectedCoefs = coefsFabric.MaxExtremumsCoefs();
             BaseTrendLine line = new PolynomialTrendLine();
 
             var res = line.GetCoefs(data);
 
-            Assert.Equal(new List<double>() { -0.108, -1.194, 1.180, -0.382, 0.053, -0.003, 0 }, res.Select(x => Math.Round(x, 3)));
+            Assert.Equal(expectedCoefs, res.Select(x => Math.Round(x, 3)));
         }
 
         [Fact]

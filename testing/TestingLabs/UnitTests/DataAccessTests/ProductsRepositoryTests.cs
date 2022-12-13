@@ -8,57 +8,66 @@ namespace UnitTests
 {
     public class ProductsRepositoryTests
     {
+        ProductBuilder builder = new ProductBuilder();
+
         [Fact]
         public void TestGet()
         {
             IProductsRepository rep = new PgSQLProductsRepository();
+            Product expectedProduct = builder.GetTestSample().Build();
 
-            Product prod = rep.Get(1);
+            Product prod = rep.Get(expectedProduct.Id);
             
-            Assert.Equal("Коляска Adamex Barletta 2 in 1", prod.Name);
-
-            // Create
-            
-
-            // Update
-            
-
-            // Delete
-            
+            Assert.Equal(expectedProduct, prod);          
         }
 
         [Fact]
         public void TestCreate()
         {
             IProductsRepository rep = new PgSQLProductsRepository();
-            Product newProd = new Product("123", "123");
+            Product newProduct = builder.CreateTestSample().Build();
             
-            rep.Create(newProd);
+            rep.Create(newProduct);
+            Product createdProduct = rep.Get(newProduct.Id);
             
-            Assert.Equal("123", rep.GetAll().Where(x => x.Name == "123").First().Name);
+            Assert.Equal(newProduct, createdProduct);
         }
 
         [Fact]
         public void TestUpdate()
         {
             IProductsRepository rep = new PgSQLProductsRepository();
-            Product newProd = new Product("123", "123");
+            Product updProd = builder.UpdateTestSample().Build();
 
-            newProd.Name = "456";
-            rep.Update(newProd);
+            rep.Create(updProd);
+            updProd.Name = "456";
+            rep.Update(updProd);
+            Product updatedProd = rep.Get(updProd.Id);
 
-            Assert.Equal("456", rep.GetAll().Where(x => x.Name == "456").First().Name);
+            Assert.Equal(updProd, updatedProd);
         }
 
         [Fact]
         public void TestDelete()
         {
             IProductsRepository rep = new PgSQLProductsRepository();
-            Product newProd = new Product("123", "123");
+            Product delProd = builder.DeleteTestSample().Build();
 
-            rep.Delete(newProd);
+            rep.Create(delProd);
+            rep.Delete(delProd);
 
-            Assert.Equal(Array.Empty<Product>(), rep.GetAll().Where(x => x.Name == "456").ToArray());
+            Assert.Null(rep.Get(delProd.Id));
+        }
+
+        [Fact]
+        public void TestGetAllFromShop()
+        {
+            IProductsRepository rep = new PgSQLProductsRepository();
+            Shop shop = new ShopBuilder().DeleteTestSample().Build();
+
+            var res = rep.GetAllFromShop(shop);
+
+            Assert.Empty(res);
         }
     }
 }
