@@ -25,18 +25,21 @@ namespace lab6_LZW
                     while (last != -1)
                     {
                         TableRow pPlusC = p + new TableRow(last); //string pPlusC = p + (char)last;
-                        while (table.IsRowInTable(pPlusC)) //dictionary.FindIndex(x => x == pPlusC) != -1)
+                        bool eofFlag = false; // flag for EOF while searching new row
+                        while (table.IsRowInTable(pPlusC) && !eofFlag) //dictionary.FindIndex(x => x == pPlusC) != -1)
                         {
                             p = pPlusC;
                             last = input.ReadByte();
 
                             if (last == -1)
-                                break;
-
-                            pPlusC += new TableRow(last);
+                                eofFlag = true;
+                            else
+                                pPlusC += new TableRow(last);
                         }
 
-                        table.Add(pPlusC);
+                        if (!eofFlag)
+                            table.Add(pPlusC);
+
                         int indexToAdd = table.FindIndex(p);
                         output.WriteNBits(indexToAdd, GetBitsAmount(table.Count));
                         p = new TableRow();
@@ -89,7 +92,6 @@ namespace lab6_LZW
         
         public static int GetBitsAmount(int maxVal)
         {
-            return 16;
             int pow = 0;
             while (maxVal > 0)
             {
